@@ -37,3 +37,6 @@ def spider_plot():
     return response
 if __name__ == "__main__":
     app.run()
+
+#  Windows Powershell Command to test this by creating a basic spider graph
+#  Invoke-WebRequest -Method POST -Uri http://localhost:5000/spider_plot -ContentType 'application/json' -Body '{"categories": ["Category 1", "Category 2", "Category 3"], "values": [50, 60, 70]}' -OutFile spider_fffplot.png
