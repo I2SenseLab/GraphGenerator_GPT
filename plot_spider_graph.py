@@ -10,6 +10,7 @@ def plot_spider_graph(categories, values, filename):
     angles += angles[:1]
     values = values + values[:1]
     # Initialise the spider plot
+    plt.clf()
     ax = plt.subplot(111, polar=True)
 
     # If you want the first axis to be on top:
@@ -32,6 +33,7 @@ def plot_spider_graph(categories, values, filename):
 
     # Save the figure as a PNG file
     plt.savefig(filename, dpi=300)
+    plt.close('all')
 
 if __name__ == "__main__":
     categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5']
