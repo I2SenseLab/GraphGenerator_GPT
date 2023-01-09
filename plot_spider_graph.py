@@ -22,8 +22,8 @@ def plot_spider_graph(categories, values, filename):
 
     # Draw ylabels
     ax.set_rlabel_position(0)
-    plt.yticks([20, 40, 60, 80, 100], ["20", "40", "60", "80", "100"], color="grey", size=7)
-    plt.ylim(0, 100)
+    plt.yticks([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"], color="grey", size=7)
+    plt.ylim(0, 5)
 
     # Plot data
     ax.plot(angles, values, linewidth=1, linestyle='solid')
