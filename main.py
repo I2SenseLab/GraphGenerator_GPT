@@ -1,5 +1,4 @@
 import json
-
 from flask import Flask, request, send_file
 from plot_spider_graph import plot_spider_graph
 import tempfile
@@ -35,6 +34,11 @@ def spider_plot():
     )
 
     return response
+
+@app.route("/")
+def hello_world():
+    return "Graph Generator Service is Running"
+
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
 
