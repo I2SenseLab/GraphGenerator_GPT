@@ -18,11 +18,11 @@ def spider_plot():
     data = request.get_json()
     categories = data['categories']
     values = data['values']
-
+    legend = data['legend']
     spiderfilename = file_path
     # Create the spider plot
     try:
-        plot_spider_graph(categories, values, spiderfilename )
+        plot_spider_graph(categories, values, spiderfilename,legend)
     except:
         spiderfilename= "bad_spider_plot.png"
     # Return the plot as a PNG file
