@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <title>Graph Generator</title>
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <script>
@@ -18,6 +21,108 @@
                     $("#bar-form").hide();
                 }
             });
+
+            $("#spider-form form").submit(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                var formData = {
+                    categories: $("#categories").val().split(",").map(function (item) {
+                        return item.trim();}),
+                    values: $("#values").val().split(",").map(function (item) {
+                        return parseInt(item.trim());}),
+                    legend: $("#legend").val().split(",").map(function (item) {
+                        return item.trim();})
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/spider_plot",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json",
+                    success: function(response) {
+                    // convert to Base64
+
+                        displayImage(response);
+                                // Show success toast notification
+                        Toastify({
+                            text: "Graph generated successfully",
+                            backgroundColor: "green",
+                            duration: 3000
+                        }).showToast();
+                        // Handle the response from the server
+                    },
+                    error: function(error) {
+                        console.error(error);
+
+                                // Show error toast notification
+                        Toastify({
+                            text: "Error generating graph",
+                            backgroundColor: "red",
+                            duration: 3000
+                        }).showToast();
+                        // Handle the error case
+                    }
+                });
+            });
+
+            $("#bar-form form").submit(function(e) {
+                e.preventDefault(); // Prevent the default form submission
+                var formData = {
+                    categories: $("#bar-categories").val().split(",").map(function (item) {
+                        return item.trim();}),
+                    values: $("#bar-values").val().split(",").map(function (item) {
+                        return parseInt(item.trim());}),
+                    title: $("#title").val().split(",").map(function (item) {
+                        return item.trim();}),
+                    xlabel: $("#xlabel").val().split(",").map(function (item) {
+                        return item.trim();}),
+                    ylabel: $("#ylabel").val().split(",").map(function (item) {
+                        return item.trim();})
+                };
+                $.ajax({
+                    type: "POST",
+                    url: "/bar_graph",
+                    data: JSON.stringify(formData),
+                    contentType: "application/json",
+                    responseType: "blob",
+                    success: function(response) {
+                        
+                        displayImage(response);
+                                // Show success toast notification
+                        Toastify({
+                            text: "Graph generated successfully",
+                            backgroundColor: "green",
+                            duration: 3000
+                        }).showToast();
+                        // Handle the response from the server
+                    },
+                    error: function(error) {
+                        console.error(error);
+
+                                // Show error toast notification
+                        Toastify({
+                            text: "Error generating graph",
+                            backgroundColor: "red",
+                            duration: 3000
+                        }).showToast();
+                        // Handle the error case
+                    }
+                });
+            });
+
+            function displayImage(response) {
+                var blob = new Blob(response.body);
+                var imageContainer = $("#image-container");
+                imageContainer.empty(); // Clear any existing images
+                var img = URL.createObjectURL(blob);
+
+                // Create a FileReader object
+                var imageElement = document.createElement("img");
+                imageElement.src = img;
+
+                
+                imageContainer.append(imageElement);
+            }
+
+
         });
     </script>
 </head>
@@ -34,7 +139,6 @@
 
     <!-- Spider Graph Form -->
     <div id="spider-form" style="display: none;">
-        <h2>Spider Graph Form</h2>
         <form>
             <label for="categories">Categories:</label>
             <input type="text" id="categories" name="categories"><br>
@@ -51,7 +155,6 @@
 
     <!-- Bar Graph Form -->
     <div id="bar-form" style="display: none;">
-        <h2>Bar Graph Form</h2>
         <form>
             <label for="bar-categories">Categories:</label>
             <input type="text" id="bar-categories" name="bar-categories"><br>
@@ -71,5 +174,17 @@
             <input type="submit" value="Generate">
         </form>
     </div>
+
+   <!-- Image Container -->
+   <div id="image-container"></div>
+
+
+    <!-- Links to Legal Template and Terms Template -->
+    <footer>
+        <div>
+            <a href="{{ url_for('legal') }}">Legal Template</a>
+            <a href="/termsofservice">Terms of Service</a>
+        </div>
+    </footer>
 </body>
 </html>

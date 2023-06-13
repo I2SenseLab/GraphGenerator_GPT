@@ -24,7 +24,7 @@ def spider_plot():
     try:
         plot_spider_graph(categories, values, spiderfilename,legend)
     except:
-        spiderfilename= "bad_spider_plot.png"
+        return "bad spider plot", 500
     # Return the plot as a PNG file
     #return send_file('spider_plot.png',download_name='spider_plot.png')
     response = send_file(
@@ -33,7 +33,7 @@ def spider_plot():
         as_attachment=True,
         download_name='spider_plot.png'
     )
-
+    print(spiderfilename)
     return response
 
 @app.route('/bar_graph', methods=['POST'])
@@ -54,7 +54,7 @@ def bar_graph():
     try:
         generate_bar_graph(categories, values, title,xlabel,ylabel,file_path)    
     except:
-        file_path = "bad_bar_plot.png"
+        return "bad bar graph", 500
 
     # Return the plot as a PNG file
     #return send_file('spider_plot.png',download_name='spider_plot.png')
@@ -64,7 +64,7 @@ def bar_graph():
         as_attachment=True,
         download_name='bar_plot.png'
     )
-
+    print(file_path)
     return response
 
 @app.route("/")

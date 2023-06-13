@@ -1,0 +1,78 @@
+/* Add your custom CSS styles here */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  animation: colorAnimation 5s infinite;
+}
+
+.container {
+  animation: colorAnimation 5s infinite;
+}
+
+@keyframes colorAnimation {
+  0% { background-color: #3cade1; }
+  25% { background-color: #7ed3ed; }
+  50% { background-color: #28777b; }
+  75% { background-color: #0b5c76; }
+  100% { background-color: #145bc5; }
+}
+
+h1 {
+  color: #333;
+  text-align: center;
+}
+
+form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+input[type="text"] {
+  width: 200px;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  padding: 10px 20px;
+  background-color: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+#spider-form,
+#bar-form {
+  margin-top: 20px;
+  text-align: center;
+}
+
+#spider-form input[type="submit"],
+#bar-form input[type="submit"] {
+  margin-top: 10px;
+}
+
+#error-message {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+  margin-top: 10px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background-color: #333;
+  color: #fff;
+  padding: 10px;
+  font-size: 12px;
+  font-weight: bold;
+}

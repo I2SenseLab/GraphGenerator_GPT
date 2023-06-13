@@ -7,9 +7,12 @@ services:
   graph_generator:
     build: .
     image: gcr.io/atkin-1/graph-generator:${DOCKER_IMAGE_TAG:-latest}
+    ports: # Expose the container's port 8080 to the host
+      - "9090:${PORT:-8080}"
     environment:
       # /docs/authentication/production
       GOOGLE_APPLICATION_CREDENTIALS: /tmp/keys/keyfile.json
+      PORT: ${PORT:-8080}
     volumes:
       # Inject your specific service account keyfile into the container at runtime.
       - ${GCP_KEY_PATH}:/tmp/keys/keyfile.json:ro
