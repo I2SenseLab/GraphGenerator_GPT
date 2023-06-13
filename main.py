@@ -1,4 +1,3 @@
-import json
 from flask import Flask, request, send_file
 from plot_spider_graph import plot_spider_graph
 from plot_bar_graph import generate_bar_graph

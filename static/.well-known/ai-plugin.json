@@ -1,0 +1,18 @@
+{
+    "schema_version": "v1",
+    "name_for_human": "Spider and Bar Graphs",
+    "name_for_model": "Spider_And_Bar_Graphs",
+    "description_for_human": "A tool for creating spider and bar graphs. You can create graphs by providing a title, labels, and values.",
+    "description_for_model": "A tool for creating spider and bar graphs. You can create graphs by providing a title, labels, and values.",
+    "auth": {
+        "type": "none"
+    },
+    "api": {
+        "type": "openapi",
+        "url": "/openapi.yaml",
+        "is_user_authenticated": false
+    },
+    "logo_url": "logo.png",
+    "contact_email": "devin@atkin.engineer",
+    "legal_info_url": "/legal"
+}

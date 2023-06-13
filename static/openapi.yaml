@@ -1,0 +1,13 @@
+openapi: 3.0.0
+info:
+  title: 
+  description: 
+  termsOfService: /termsofservice
+  contact:
+    name: Devin Atkin
+    url: /legal
+    email: devin@atkin.engineer
+  version: 1.0.1
+servers:
+- url: 
+  description: Google Cloud Run 1
