@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Graph Generator</title>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $("#graph-type").change(function() {
+                var selectedOption = $(this).children("option:selected").val();
+                if (selectedOption === "spider") {
+                    $("#spider-form").show();
+                    $("#bar-form").hide();
+                } else if (selectedOption === "bar") {
+                    $("#spider-form").hide();
+                    $("#bar-form").show();
+                } else {
+                    $("#spider-form").hide();
+                    $("#bar-form").hide();
+                }
+            });
+        });
+    </script>
+</head>
+<body>
+    <h1>Graph Generator</h1>
+    <form>
+        <label for="graph-type">Graph Type:</label>
+        <select id="graph-type" name="graph-type">
+            <option value="">Select a graph type</option>
+            <option value="spider">Spider Graph</option>
+            <option value="bar">Bar Graph</option>
+        </select>
+    </form>
+
+    <!-- Spider Graph Form -->
+    <div id="spider-form" style="display: none;">
+        <h2>Spider Graph Form</h2>
+        <form>
+            <label for="categories">Categories:</label>
+            <input type="text" id="categories" name="categories"><br>
+
+            <label for="values">Values:</label>
+            <input type="text" id="values" name="values"><br>
+
+            <label for="legend">Legend:</label>
+            <input type="text" id="legend" name="legend"><br>
+
+            <input type="submit" value="Generate">
+        </form>
+    </div>
+
+    <!-- Bar Graph Form -->
+    <div id="bar-form" style="display: none;">
+        <h2>Bar Graph Form</h2>
+        <form>
+            <label for="bar-categories">Categories:</label>
+            <input type="text" id="bar-categories" name="bar-categories"><br>
+
+            <label for="bar-values">Values:</label>
+            <input type="text" id="bar-values" name="bar-values"><br>
+
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title"><br>
+
+            <label for="xlabel">X Label:</label>
+            <input type="text" id="xlabel" name="xlabel"><br>
+
+            <label for="ylabel">Y Label:</label>
+            <input type="text" id="ylabel" name="ylabel"><br>
+
+            <input type="submit" value="Generate">
+        </form>
+    </div>
+</body>
+</html>

@@ -1,8 +1,9 @@
-from flask import Flask, request, send_file
+from flask import Flask, request, send_file, render_template, send_from_directory, jsonify
 from plot_spider_graph import plot_spider_graph
 from plot_bar_graph import generate_bar_graph
 import tempfile
 import os
+import yaml
 
 app = Flask(__name__)
 
@@ -67,8 +68,31 @@ def bar_graph():
     return response
 
 @app.route("/")
-def hello_world():
-    return "Graph Generator Service is Running"
+def main_page():
+    return render_template("home.html")
+
+@app.route('/.well-known/ai-plugin.json')
+def serve_manifest():
+    return send_from_directory(os.path.join(app.root_path, 'static', '.well-known'), 'ai-plugin.json')
+
+@app.route('/logo.png')
+def serve_logo():
+    return send_from_directory(os.path.join(app.root_path, 'static'),'logo.png')
+
+@app.route("/legal")
+def legal():
+    return render_template('legal.html')
+
+@app.route("/termsofservice")
+def termsofservice():
+    return render_template('terms.html')
+
+@app.route('/openapi.yaml')
+def serve_openapi_yaml():
+    with open(os.path.join(app.root_path,'static', 'openapi.yaml'), 'r') as f:
+        yaml_data = f.read()
+    yaml_data = yaml.load(yaml_data, Loader=yaml.FullLoader)
+    return jsonify(yaml_data)
 
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0", port=int(os.environ.get("PORT", 8080)))
