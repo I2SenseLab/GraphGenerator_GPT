@@ -1,4 +1,5 @@
 from flask import Flask, request, render_template, send_from_directory, jsonify
+from flask_cors import CORS
 from plot_spider_graph import plot_spider_graph
 from plot_bar_graph import generate_bar_graph
 import tempfile
@@ -6,6 +7,8 @@ import os
 import yaml
 import base64
 app = Flask(__name__)
+PORT = os.environ.get("PORT", 8080)
+CORS(app, origins=[f"https://graphconstructor.com/","https://graphgenerator-chatgptplugin-geearsjixq-uc.a.run.app:{PORT}", "http://localhost:{PORT}", "https://chat.openai.com"])
 
 @app.route('/spider_plot', methods=['POST'])
 def spider_plot():
