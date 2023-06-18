@@ -13,7 +13,7 @@ def color_from_number(max_num, current_num):
     r, g, b = [int(x * 255) for x in (h, s, l)]
     return (r,g,b)
 
-def plot_spider_graph(categories, values, filename, legend = None):
+def plot_spider_graph(categories, values, filename, legend = None, max_value = None, tick_spacing = None):
     # Number of variables
     N = len(categories)
     C = len(values)
@@ -34,10 +34,19 @@ def plot_spider_graph(categories, values, filename, legend = None):
     # Draw one axe per variable + add labels labels yet
     plt.xticks(angles[:-1], categories, color='black', size=8)
 
+    # Calculate the max value for y-axis if not provided
+    if max_value is None:
+        max_value = max(max(values), 5)
+
+    if tick_spacing is None:
+        # Determine tick spacing
+        tick_spacing = determineTickSpacing(max_value)
+
     # Draw ylabels
     ax.set_rlabel_position(0)
-    plt.yticks([1, 2, 3, 4, 5], ["1", "2", "3", "4", "5"], color="grey", size=7)
-    plt.ylim(0, 5)
+    y_ticks = [i for i in range(1,int(max_value)+1,tick_spacing)]
+    plt.yticks(y_ticks, map(str,y_ticks), color="grey", size=7)
+    plt.ylim(0, max_value)
 
     # Plot data
     for i in range(C//N):
@@ -70,6 +79,17 @@ def plot_spider_graph(categories, values, filename, legend = None):
     # Save the figure as a PNG file
     plt.savefig(filename, dpi=300)
     plt.close('all')
+
+def determineTickSpacing(max_value):
+    if max_value <= 10:
+        tick_spacing = 1
+    elif max_value <= 50:
+        tick_spacing = 5
+    elif max_value <= 100:
+        tick_spacing = 10
+    else:
+        tick_spacing = max_value // 10
+    return tick_spacing
 
 if __name__ == "__main__":
     categories = ['Category 1', 'Category 2', 'Category 3', 'Category 4', 'Category 5']

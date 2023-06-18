@@ -18,10 +18,11 @@ def spider_plot():
     categories = data['categories']
     values = data['values']
     legend = data['legend']
+    max_value = data.get('max_value', None)   
     spiderfilename = file_path
 
     try:
-        plot_spider_graph(categories, values, spiderfilename, legend)
+        plot_spider_graph(categories, values, spiderfilename, legend, max_value)
     except:
         return "bad spider plot", 500
 
