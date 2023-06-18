@@ -4,37 +4,36 @@ from plot_bar_graph import generate_bar_graph
 import tempfile
 import os
 import yaml
-
+import base64
 app = Flask(__name__)
 
 @app.route('/spider_plot', methods=['POST'])
 def spider_plot():
-
     # Generate a random file name in the temp directory
     file_name = next(tempfile._get_candidate_names())
     file_path = os.path.join(tempfile.gettempdir(), file_name + ".png")
-    
+
     # Parse the JSON data from the request
     data = request.get_json()
     categories = data['categories']
     values = data['values']
     legend = data['legend']
     spiderfilename = file_path
-    # Create the spider plot
+
     try:
-        plot_spider_graph(categories, values, spiderfilename,legend)
+        plot_spider_graph(categories, values, spiderfilename, legend)
     except:
         return "bad spider plot", 500
-    # Return the plot as a PNG file
-    #return send_file('spider_plot.png',download_name='spider_plot.png')
-    response = send_file(
-        spiderfilename,
-        mimetype='image/png',
-        as_attachment=True,
-        download_name='spider_plot.png'
-    )
-    print(spiderfilename)
-    return response
+
+    with open(spiderfilename, 'rb') as image_file:
+        image_data = image_file.read()
+        base64_image = base64.b64encode(image_data).decode('utf-8')
+
+    response_data = {
+        'image': base64_image
+    }
+
+    return response_data
 
 @app.route('/bar_graph', methods=['POST'])
 def bar_graph():
@@ -47,25 +46,24 @@ def bar_graph():
     categories = data['categories']
     values = data['values']
 
-    title = data['title']
-    xlabel = data['xlabel']
-    ylabel = data['ylabel']
+    title = data['title'][0]
+    xlabel = data['xlabel'][0]
+    ylabel = data['ylabel'][0]
 
     try:
-        generate_bar_graph(categories, values, title,xlabel,ylabel,file_path)    
+        generate_bar_graph(categories, values, title, xlabel, ylabel, file_path)
     except:
         return "bad bar graph", 500
 
-    # Return the plot as a PNG file
-    #return send_file('spider_plot.png',download_name='spider_plot.png')
-    response = send_file(
-        file_path,
-        mimetype='image/png',
-        as_attachment=True,
-        download_name='bar_plot.png'
-    )
-    print(file_path)
-    return response
+    with open(file_path, 'rb') as image_file:
+        image_data = image_file.read()
+        base64_image = base64.b64encode(image_data).decode('utf-8')
+
+    response_data = {
+        'image': base64_image
+    }
+
+    return response_data
 
 @app.route("/")
 def main_page():

@@ -37,6 +37,7 @@
                     url: "/spider_plot",
                     data: JSON.stringify(formData),
                     contentType: "application/json",
+                    responseType: "arraybuffer",
                     success: function(response) {
                     // convert to Base64
 
@@ -82,7 +83,7 @@
                     url: "/bar_graph",
                     data: JSON.stringify(formData),
                     contentType: "application/json",
-                    responseType: "blob",
+                    responseType: "arraybuffer",
                     success: function(response) {
                         
                         displayImage(response);
@@ -108,19 +109,35 @@
                 });
             });
 
+            // Display the image in the image container
             function displayImage(response) {
-                var blob = new Blob(response.body);
-                var imageContainer = $("#image-container");
-                imageContainer.empty(); // Clear any existing images
-                var img = URL.createObjectURL(blob);
+                // Get the image container
+                var imageContainer = document.getElementById("image-container");
 
-                // Create a FileReader object
-                var imageElement = document.createElement("img");
-                imageElement.src = img;
+                // Clear the image container
+                imageContainer.innerHTML = "";
 
-                
-                imageContainer.append(imageElement);
+                // Create an img element
+                var img = document.createElement("img");
+
+                // Set the src attribute to the base64 image data
+                img.src = "data:image/png;base64," + response.image;
+
+                // Append the img element to the image container
+                imageContainer.appendChild(img);
+
+                // Create a download link
+                var downloadLink = document.createElement("a");
+                downloadLink.href = "data:image/png;base64," + response.image;
+                downloadLink.download = "image.png";
+                downloadLink.textContent = "Download Image";
+
+                // Append the download link to the image container
+                imageContainer.appendChild(downloadLink);
+
+                console.log("Image displayed");
             }
+
 
 
         });
