@@ -16,14 +16,10 @@ paths:
     post:
       summary: Create a spider plot
       description: >
-        Create a spider plot from an array of values, categories, legend, and max value.
-        Values is all the values for the first item in the legend followed by all the values for the second and so on.
-        Categories is an array of strings that are the names of the categories.
-        Legend is an array of strings that are the names of the different items graphed on the spider graph.
-        Max value is a number that is the max value for the graph.
-        If no max value is provided, the max value will be the max value in the values array.
-        If there is one item in the legent then the number of values should be the number of categories.
-        If there are multiple items in the legend then the number of values should be the number of categories times the number of items in the legend.
+        To create a spider plot,
+        use an array of values, categories, and a legend.
+        Optionally set a maximum value or use the highest value in the array.
+        If one item in the legend, values match categories. If multiple items, the number of values equals categories multiplied by legend items.
       operationId: spider_plot
       requestBody:
         content:
