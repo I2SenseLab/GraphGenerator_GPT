@@ -1,13 +1,120 @@
 openapi: 3.0.0
 info:
-  title: 
-  description: 
-  termsOfService: /termsofservice
+  title: Graph Generator
+  description: This is an application for creating bar graphs and spider plots.
+  termsOfService: https://graphconstructor.com/termsofservice
   contact:
     name: Devin Atkin
-    url: /legal
-    email: devin@atkin.engineer
-  version: 1.0.1
+    url: https://graphconstructor.com/legal
+    email: devin@graphconstructor.com
+  version: 1.0.0
 servers:
-- url: 
+- url: https://graphconstructor.com
   description: Google Cloud Run 1
+paths:
+  /spider_plot:
+    post:
+      summary: Create a spider plot
+      description: >
+        Create a spider plot from an array of values, categories, legend, and max value.
+        Values is all the values for the first item in the legend followed by all the values for the second and so on.
+        Categories is an array of strings that are the names of the categories.
+        Legend is an array of strings that are the names of the different items graphed on the spider graph.
+        Max value is a number that is the max value for the graph.
+        If no max value is provided, the max value will be the max value in the values array.
+        If there is one item in the legent then the number of values should be the number of categories.
+        If there are multiple items in the legend then the number of values should be the number of categories times the number of items in the legend.
+      operationId: spider_plot
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SpiderPlotRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SpiderPlotResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/html:
+              schema:
+                type: string
+  /bar_graph:
+    post:
+      summary: Create a bar graph
+      description: >
+        Create a bar graph from an array of values, categories, legend, and max value.
+      operationId: bar_graph
+      requestBody:
+        content:
+          image/png:
+            schema:
+              $ref: '#/components/schemas/BarGraphRequest'
+        required: true
+      responses:
+        '200':
+          description: OK
+          content:
+            image/png:
+              schema:
+                $ref: '#/components/schemas/BarGraphResponse'
+        '400':
+          description: Bad Request
+          content:
+            text/html:
+              schema:
+                type: string
+
+components:
+  schemas:
+    SpiderPlotRequest:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: number
+        categories:
+          type: array
+          items:
+            type: string
+        legend:
+          type: array
+          items:
+            type: string
+        max_value:
+          type: number
+    SpiderPlotResponse:
+      type: object
+      properties:
+        image:
+          type: string
+          format: byte
+    BarGraphRequest:
+      type: object
+      properties:
+        values:
+          type: array
+          items:
+            type: number
+        categories:
+          type: array
+          items:
+            type: string
+        xlabel:
+          type: string
+        ylabel:
+          type: string
+        title:
+          type: string
+    BarGraphResponse:
+      type: object
+      properties:
+        image:
+          type: string
+          format: byte

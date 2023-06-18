@@ -1,4 +1,4 @@
-from flask import Flask, request, send_file, render_template, send_from_directory, jsonify
+from flask import Flask, request, render_template, send_from_directory, jsonify
 from plot_spider_graph import plot_spider_graph
 from plot_bar_graph import generate_bar_graph
 import tempfile
@@ -24,7 +24,7 @@ def spider_plot():
     try:
         plot_spider_graph(categories, values, spiderfilename, legend, max_value)
     except:
-        return "bad spider plot", 500
+        return "bad spider plot", 400
 
     with open(spiderfilename, 'rb') as image_file:
         image_data = image_file.read()
@@ -54,7 +54,7 @@ def bar_graph():
     try:
         generate_bar_graph(categories, values, title, xlabel, ylabel, file_path)
     except:
-        return "bad bar graph", 500
+        return "bad bar graph", 400
 
     with open(file_path, 'rb') as image_file:
         image_data = image_file.read()
