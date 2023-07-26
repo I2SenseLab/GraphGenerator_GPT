@@ -1,6 +1,6 @@
 openapi: 3.0.0
 info:
-  title: Graph Generator
+  title: Graph Constructor
   description: This is an application for creating bar graphs and spider plots.
   termsOfService: https://graphconstructor.com/termsofservice
   contact:
