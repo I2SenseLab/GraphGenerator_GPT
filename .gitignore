@@ -1,3 +1,4 @@
 *.png
+!logo.png
 *.pyc
 !bad_spider_plot.png
