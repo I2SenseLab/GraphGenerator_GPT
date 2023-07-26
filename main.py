@@ -43,7 +43,14 @@ def spider_plot():
         # Here you would upload the file to a storage bucket and get its URL.
         # Assuming upload_to_bucket() is a function that handles uploading the image to your storage bucket
         # and returns the URL of the uploaded image.
-        bucket_url = upload_to_bucket(spiderfilename,spiderfilename)
+        # Combining the variables into a dictionary
+        metadata = {
+            "categories": categories,
+            "values": values,
+            "legend": legend,
+            "max_value": max_value
+        }
+        bucket_url = upload_to_bucket(spiderfilename,spiderfilename, metadata=metadata)
         response_data = {
             'image': bucket_url
         }
@@ -81,7 +88,15 @@ def bar_graph():
         # Here you would upload the file to a storage bucket and get its URL.
         # Assuming upload_to_bucket() is a function that handles uploading the image to your storage bucket
         # and returns the URL of the uploaded image.
-        bucket_url = upload_to_bucket(file_path,file_path)
+        # Combining the variables into a dictionary
+        metadata = {
+            "categories": categories,
+            "values": values,
+            "title": title,
+            "xlabel": xlabel,
+            "ylabel": ylabel
+        }
+        bucket_url = upload_to_bucket(file_path,file_path, metadata=metadata)
         response_data = {
             'image': bucket_url
         }
