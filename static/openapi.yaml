@@ -16,10 +16,7 @@ paths:
     post:
       summary: Create a spider plot
       description: >
-        To create a spider plot,
-        use an array of values, categories, and a legend.
-        Optionally set a maximum value or use the highest value in the array.
-        If one item in the legend, values match categories. If multiple items, the number of values equals categories multiplied by legend items.
+        To create a spider plot, use an array of data_sets where each data_set contains an array of values and a corresponding legend. Optionally set a maximum value or use the highest value in the array.
       operationId: spider_plot
       requestBody:
         content:
@@ -44,11 +41,11 @@ paths:
     post:
       summary: Create a bar graph
       description: >
-        Create a bar graph from an array of values, categories, legend, and max value.
+        Create a bar graph from an array of values, categories, xlabel, ylabel, and title. Response type defaults to 'bucketurl' but can be set to 'base64'.
       operationId: bar_graph
       requestBody:
         content:
-          image/png:
+          application/json:
             schema:
               $ref: '#/components/schemas/BarGraphRequest'
         required: true
@@ -56,7 +53,7 @@ paths:
         '200':
           description: OK
           content:
-            image/png:
+            application/json:
               schema:
                 $ref: '#/components/schemas/BarGraphResponse'
         '400':
@@ -65,21 +62,23 @@ paths:
             text/html:
               schema:
                 type: string
-
 components:
   schemas:
     SpiderPlotRequest:
       type: object
       properties:
-        values:
+        data_sets:
           type: array
           items:
-            type: number
+            type: object
+            properties:
+              values:
+                type: array
+                items:
+                  type: number
+              legend:
+                type: string
         categories:
-          type: array
-          items:
-            type: string
-        legend:
           type: array
           items:
             type: string
