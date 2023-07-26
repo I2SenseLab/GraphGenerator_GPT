@@ -10,7 +10,7 @@ def color_from_number(max_num, current_num):
     h, s, l = colorsys.hls_to_rgb(norm_num, 0.5, 0.5)
 
     # Convert the HSL color to RGB and format it as a hex string
-    r, g, b = [int(x * 255) for x in (h, s, l)]
+    r, g, b = [x for x in (h, s, l)]
     return (r,g,b)
 
 def plot_spider_graph(categories, values, filename, legend = None, max_value = None, tick_spacing = None):
