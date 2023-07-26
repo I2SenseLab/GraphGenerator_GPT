@@ -73,12 +73,9 @@
                     values: $("#bar-values").val().split(",").map(function (item) {
                         return parseInt(item.trim());}),
                     response_type: "base64",
-                    title: $("#title").val().split(",").map(function (item) {
-                        return item.trim();}),
-                    xlabel: $("#xlabel").val().split(",").map(function (item) {
-                        return item.trim();}),
-                    ylabel: $("#ylabel").val().split(",").map(function (item) {
-                        return item.trim();})
+                    title: $("#title").val(),
+                    xlabel: $("#xlabel").val(),
+                    ylabel: $("#ylabel").val()
                 };
                 $.ajax({
                     type: "POST",

@@ -67,9 +67,9 @@ def bar_graph():
     data = request.get_json()
     categories = data['categories']
     values = data['values']
-    title = data['title'][0]
-    xlabel = data['xlabel'][0]
-    ylabel = data['ylabel'][0]
+    title = data['title']
+    xlabel = data['xlabel']
+    ylabel = data['ylabel']
     response_type = data.get('response_type', 'bucketurl')  # New optional parameter 'response_type'
 
     try:
