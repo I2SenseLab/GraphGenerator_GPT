@@ -19,6 +19,7 @@ def plot_spider_graph(categories, values, filename, legend = None, max_value = N
     C = len(values)
 
     print("Graphing {} categories, and {} values".format(N,C))
+    print("Categories: {} , Values: {}".format(categories, values))
     # What will be the angle of each axis in the plot? (we divide the plot / number of variable)
     angles = [n / float(N) * 2 * pi for n in range(N)]
     angles += angles[:1]

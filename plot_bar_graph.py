@@ -3,6 +3,8 @@ from datetime import datetime
 import tempfile
 import os 
 def generate_bar_graph(categories,data,title = "Statistics Bar Graph",xlabel = "Categories",ylabel = "Values", filename = "Bar_Graph.png"):
+    print("Generating Bar Graph with {} categories and {} values".format(len(categories),len(data)))
+    print("Categories: {} , Values: {}".format(categories,data))
     plt.bar(categories, data)
 
     plt.title(title)
