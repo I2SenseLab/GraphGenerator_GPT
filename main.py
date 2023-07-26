@@ -33,7 +33,7 @@ def spider_plot():
         legend.append(data_set['legend'])
 
     spiderfilename = file_path
-
+    values = [element for sublist in values for element in sublist] # Flatten the list of lists
     try:
         plot_spider_graph(categories, values, spiderfilename, legend, max_value)
     except:
