@@ -111,6 +111,10 @@ def bar_graph():
     return response_data
 
 
+@app.route('/ads.txt')
+def serve_ads_txt():
+    return send_from_directory(os.path.join(app.root_path, 'static'), 'ads.txt')
+
 @app.route("/")
 def main_page():
     return render_template("home.html")
