@@ -10,7 +10,7 @@ import base64
 
 app = Flask(__name__)
 PORT = os.environ.get("PORT", 8080)
-CORS(app, origins=[f"https://graphconstructor.com/","https://graphgenerator-chatgptplugin-geearsjixq-uc.a.run.app:{PORT}", "http://localhost:{PORT}", "https://chat.openai.com"])
+CORS(app, origins=[f"https://graph-gpt.fl2f.ca/", "http://localhost:{PORT}", "https://chat.openai.com"])
 
 @app.route('/spider_plot', methods=['POST'])
 def spider_plot():
