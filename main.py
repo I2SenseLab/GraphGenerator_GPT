@@ -14,6 +14,21 @@ CORS(app, origins=[f"https://graph-gpt.fl2f.ca/", "http://localhost:{PORT}", "ht
 
 @app.route('/spider_plot', methods=['POST'])
 def spider_plot():
+    """
+    Generate a spider plot graph based on the provided data.
+
+    This function takes in a JSON request containing categories, data sets, and optional parameters,
+    and generates a spider plot graph based on the provided data. The graph is saved as a PNG file
+    and the response data includes the URL or base64-encoded image data of the generated graph.
+
+    Returns:
+        dict: A dictionary containing the response data, including the URL or base64-encoded image data
+              of the generated graph.
+
+    Raises:
+        Exception: If an error occurs during the generation of the spider plot graph.
+
+    """
     # Generate a random file name in the temp directory
     file_name = next(tempfile._get_candidate_names())
     file_path = os.path.join(tempfile.gettempdir(), file_name + ".png")
@@ -66,6 +81,18 @@ def spider_plot():
 
 @app.route('/bar_graph', methods=['POST'])
 def bar_graph():
+    """
+    Generate a bar graph based on the provided data and return the graph as a response.
+
+    Parameters:
+    None
+
+    Returns:
+    response_data (dict): A dictionary containing the image data of the generated bar graph or the URL of the graph.
+
+    Raises:
+    None
+    """
     # Generate a random file name in the temp directory
     file_name = next(tempfile._get_candidate_names())
     file_path = os.path.join(tempfile.gettempdir(), file_name + ".png")
