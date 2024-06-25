@@ -1,3 +1,3 @@
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-t', 'gcr.io/fl2f-1/graph-gpt:latest', '.']
+    args: ['build', '-t', 'northamerica-northeast1-docker.pkg.dev/fl2f-1/fl2f-docker/graph-gpt:latest', '.']
